@@ -1,0 +1,20 @@
+OrdererOrgs:
+  - Name: Orderer
+    Domain: example.com
+    Specs:
+      - Hostname: orderer
+
+PeerOrgs:
+  - Name: Ibn
+    Domain: ibn.ictu.edu.vn
+    Template:
+      Count: 1
+    Users:
+      Count: 1
+
+  - Name: Partner1
+    Domain: partner1.example.com
+    Template:
+      Count: 1
+    Users:
+      Count: 1
