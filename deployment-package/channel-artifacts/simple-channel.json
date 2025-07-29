@@ -1,0 +1,21 @@
+{
+    "channel_group": {
+        "groups": {
+            "Application": {
+                "groups": {
+                    "IbnMSP": {
+                        "values": {
+                            "MSP": {
+                                "value": {
+                                    "config": {
+                                        "name": "IbnMSP"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

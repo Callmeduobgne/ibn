@@ -1,0 +1,169 @@
+#############################################################################
+# Fabric CA Server Configuration for Orderer Organization
+#############################################################################
+
+# Version of config file
+version: 1.5.5
+
+# Server's listening port
+port: 10054
+
+# Enables debug logging
+debug: false
+
+# Size limit of an acceptable CRL in bytes
+crlsizelimit: 512000
+
+#############################################################################
+# TLS section for the server's listening port
+#############################################################################
+tls:
+  # Enable TLS
+  enabled: true
+  # TLS for the server's listening port
+  certfile:
+  keyfile:
+  clientauth:
+    type: noclientcert
+    certfiles:
+
+#############################################################################
+# CA section
+#############################################################################
+ca:
+  # Name of this CA
+  name: ca-orderer
+  # Key file (is only used to import a private key)
+  keyfile:
+  # Certificate file (is only used to import a certificate)
+  certfile:
+  # Chain file
+  chainfile:
+
+#############################################################################
+# Registry section
+#############################################################################
+registry:
+  # Maximum number of times a password/secret can be reused for enrollment
+  maxenrollments: -1
+
+  # Contains identity information which is used when LDAP is disabled
+  identities:
+     - name: admin
+       pass: adminpw
+       type: client
+       affiliation: ""
+       attrs:
+          hf.Registrar.Roles: "*"
+          hf.Registrar.DelegateRoles: "*"
+          hf.Revoker: true
+          hf.IntermediateCA: true
+          hf.GenCRL: true
+          hf.Registrar.Attributes: "*"
+          hf.AffiliationMgr: true
+
+#############################################################################
+# Database section
+#############################################################################
+db:
+  type: sqlite3
+  datasource: fabric-ca-server.db
+  tls:
+      enabled: false
+      certfiles:
+      client:
+        certfile:
+        keyfile:
+
+#############################################################################
+# LDAP section
+#############################################################################
+ldap:
+   enabled: false
+
+#############################################################################
+# Affiliations section
+#############################################################################
+affiliations:
+   orderer:
+      - department1
+
+#############################################################################
+# Signing section
+#############################################################################
+signing:
+    default:
+      usage:
+        - digital signature
+      expiry: 8760h
+    profiles:
+      ca:
+         usage:
+           - cert sign
+           - crl sign
+         expiry: 43800h
+         caconstraint:
+           isca: true
+           maxpathlen: 0
+      tls:
+         usage:
+            - signing
+            - key encipherment
+            - server auth
+            - client auth
+            - key agreement
+         expiry: 8760h
+
+#############################################################################
+# Certificate Signing Request (CSR) section
+#############################################################################
+csr:
+   cn: ca-orderer
+   keyrequest:
+     algo: ecdsa
+     size: 256
+   names:
+      - C: VN
+        ST: "Hanoi"
+        L: "Hanoi"
+        O: ictu.edu.vn
+        OU: "Orderer Department"
+   hosts:
+     - ca-orderer
+     - ca-orderer.ictu.edu.vn
+     - 100.120.39.103
+     - localhost
+
+#############################################################################
+# BCCSP (BlockChain Crypto Service Provider) section
+#############################################################################
+bccsp:
+    default: SW
+    sw:
+        hash: SHA2
+        security: 256
+        filekeystore:
+            keystore: msp/keystore
+
+#############################################################################
+# Multi CA section
+#############################################################################
+cacount:
+
+cafiles:
+
+intermediate:
+  parentserver:
+    url:
+    caname:
+
+  enrollment:
+    hosts:
+    profile:
+    label:
+
+  tls:
+    certfiles:
+    client:
+      certfile:
+      keyfile:

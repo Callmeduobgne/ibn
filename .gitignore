@@ -1,4 +1,95 @@
-# OS Generated files
+# IBN Blockchain Project - GitIgnore
+# ===================================
+
+# Sensitive Data & Credentials
+.env
+*.key
+*.pem
+*.crt
+*.p12
+*.jks
+fabric-ca-server-config.yaml
+connection-*.json
+
+# Crypto Materials (Security Risk)
+crypto-config/
+crypto-config-*/
+msp/
+tls/
+ca-cert.pem
+*-cert.pem
+*-key.pem
+
+# Development Files
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+*.so
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Virtual Environments
+venv/
+env/
+ENV/
+ibn-api/venv/
+ibn-api/env/
+
+# IDE Files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+logs/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Node.js
+node_modules/
+npm-debug.log
+yarn.lock
+package-lock.json
+
+# Temporary Files
+tmp/
+temp/
+*.tmp
+*.temp
+*.bak
+*.backup
+*.old
+
+# Build Artifacts
+dist/
+build/
+*.tar.gz
+*.zip
+
+# Docker
+.dockerignore
+docker-compose.override.yml
+
+# Fabric Network Artifacts (Generated)
+channel-artifacts/*.block
+channel-artifacts/*.tx
+channel-artifacts/*.pb
+
+# Backup Directories
+*-backup-*/
+backup/
+backups/
+
+# OS Generated Files
 .DS_Store
 .DS_Store?
 ._*
@@ -7,119 +98,23 @@
 ehthumbs.db
 Thumbs.db
 
-# Temporary files
-*.tmp
-*.temp
-*.bak
-*.old
-*.swp
-*~
+# Fabric Samples (Should never be in production)
+fabric-samples/
+fabric-samples-*/
 
-# Log files
-*.log
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
+# Test Files
+test-results/
+coverage/
 
-# Runtime data
-pids
-*.pid
-*.seed
-*.pid.lock
+# Local Configuration
+local-config/
+*.local
 
-# Build directories
-dist/
-build/
-target/
-out/
+# Database
+*.db
+*.sqlite
+*.sqlite3
 
-# Node modules
-node_modules/
-npm-debug.log
-
-# Docker related
-.dockerignore
-
-# IDE files
-.vscode/settings.json
-.idea/
-*.suo
-*.ntvs*
-*.njsproj
-*.sln
-*.sw?
-
-# Hyperledger Fabric specific
-# Crypto materials (should be generated)
-crypto-config/
-channel-artifacts/
-*.block
-*.tx
-
-# Binary files that should not be in git
-fabric-ibn-network/bin/configtxgen
-fabric-ibn-network/bin/cryptogen
-fabric-ibn-network/bin/fabric-ca-client
-fabric-ibn-network/bin/fabric-ca-server
-fabric-ibn-network/bin/peer
-fabric-ibn-network/bin/orderer
-
-# Deployment specific
-fabric-ibn-network/deployment-package/crypto-config-cryptogen/
-fabric-ibn-network/deployment-package/channel-artifacts-new/
-fabric-ibn-network/deployment-package/ibn-ubuntu-deploy/
-fabric-ibn-network/deployment-package/backup-scripts/
-
-# Large sample directories (keep only what's necessary)
-fabric-samples/test-network/log.txt
-fabric-samples/test-network/organizations/
-fabric-samples/test-network/channel-artifacts/
-
-# Archive files
-*.tar.gz
-*.zip
-*.rar
-
-# Certificate files
-*.pem
-*.crt
-*.key
-
-# Go specific
-# Binaries for programs and plugins
-*.exe
-*.exe~
-*.dll
-*.so
-*.dylib
-
-# Test binary, built with `go test -c`
-*.test
-
-# Output of the go coverage tool
-*.out
-
-# Java specific
-*.class
-*.jar
-*.war
-*.ear
-*.sar
-.mtj.tmp/
-hs_err_pid*
-
-# Gradle
-.gradle
-build/
-
-# Maven
-target/
-pom.xml.tag
-pom.xml.releaseBackup
-pom.xml.versionsBackup
-pom.xml.next
-release.properties
-dependency-reduced-pom.xml
-buildNumber.properties
-.mvn/timing.properties
-.mvn/wrapper/maven-wrapper.jar
+# Certificates (Auto-generated)
+organizations/
+system-genesis-block/
