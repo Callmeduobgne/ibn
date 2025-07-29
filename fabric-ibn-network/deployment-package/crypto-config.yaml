@@ -1,0 +1,31 @@
+OrdererOrgs:
+  - Name: Orderer
+    Domain: ictu.edu.vn
+    EnableNodeOUs: false
+    Specs:
+      - Hostname: orderer
+
+PeerOrgs:
+  - Name: Ibn
+    Domain: ibn.ictu.edu.vn
+    EnableNodeOUs: false
+    Template:
+      Count: 1
+    Users:
+      Count: 1
+      
+  - Name: Partner1
+    Domain: partner1.example.com
+    EnableNodeOUs: false
+    Template:
+      Count: 1
+    Users:
+      Count: 1
+      
+  - Name: Partner2
+    Domain: partner2.example.com
+    EnableNodeOUs: false
+    Template:
+      Count: 1
+    Users:
+      Count: 1

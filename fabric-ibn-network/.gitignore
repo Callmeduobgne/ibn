@@ -1,0 +1,120 @@
+# IBN Blockchain Project - GitIgnore
+# ===================================
+
+# Sensitive Data & Credentials
+.env
+*.key
+*.pem
+*.crt
+*.p12
+*.jks
+fabric-ca-server-config.yaml
+connection-*.json
+
+# Crypto Materials (Security Risk)
+crypto-config/
+crypto-config-*/
+msp/
+tls/
+ca-cert.pem
+*-cert.pem
+*-key.pem
+
+# Development Files
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+*.so
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Virtual Environments
+venv/
+env/
+ENV/
+ibn-api/venv/
+ibn-api/env/
+
+# IDE Files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+logs/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Node.js
+node_modules/
+npm-debug.log
+yarn.lock
+package-lock.json
+
+# Temporary Files
+tmp/
+temp/
+*.tmp
+*.temp
+*.bak
+*.backup
+*.old
+
+# Build Artifacts
+dist/
+build/
+*.tar.gz
+*.zip
+
+# Docker
+.dockerignore
+docker-compose.override.yml
+
+# Fabric Network Artifacts (Generated)
+channel-artifacts/*.block
+channel-artifacts/*.tx
+channel-artifacts/*.pb
+
+# Backup Directories
+*-backup-*/
+backup/
+backups/
+
+# OS Generated Files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Fabric Samples (Should never be in production)
+fabric-samples/
+fabric-samples-*/
+
+# Test Files
+test-results/
+coverage/
+
+# Local Configuration
+local-config/
+*.local
+
+# Database
+*.db
+*.sqlite
+*.sqlite3
+
+# Certificates (Auto-generated)
+organizations/
+system-genesis-block/

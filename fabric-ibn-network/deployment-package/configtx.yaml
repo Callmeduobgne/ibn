@@ -1,0 +1,166 @@
+Organizations:
+  - &OrdererOrg
+      Name: OrdererOrg
+      ID: OrdererMSP
+      MSPDir: ./crypto-config-cryptogen/ordererOrganizations/ictu.edu.vn/msp
+      Policies:
+          Readers:
+              Type: Signature
+              Rule: "OR('OrdererMSP.member')"
+          Writers:
+              Type: Signature
+              Rule: "OR('OrdererMSP.member')"
+          Admins:
+              Type: Signature
+              Rule: "OR('OrdererMSP.admin')"
+      OrdererEndpoints:
+          - orderer.ictu.edu.vn:7050
+
+  - &IbnOrg
+      Name: IbnMSP
+      ID: IbnMSP
+      MSPDir: ./crypto-config-cryptogen/peerOrganizations/ibn.ictu.edu.vn/msp
+      Policies:
+          Readers:
+              Type: Signature
+              Rule: "OR('IbnMSP.admin', 'IbnMSP.peer', 'IbnMSP.client')"
+          Writers:
+              Type: Signature
+              Rule: "OR('IbnMSP.admin', 'IbnMSP.client')"
+          Admins:
+              Type: Signature
+              Rule: "OR('IbnMSP.admin')"
+          Endorsement:
+              Type: Signature
+              Rule: "OR('IbnMSP.peer')"
+
+  - &Partner1Org
+      Name: Partner1MSP
+      ID: Partner1MSP
+      MSPDir: ./crypto-config-cryptogen/peerOrganizations/partner1.example.com/msp
+      Policies:
+          Readers:
+              Type: Signature
+              Rule: "OR('Partner1MSP.admin', 'Partner1MSP.peer', 'Partner1MSP.client')"
+          Writers:
+              Type: Signature
+              Rule: "OR('Partner1MSP.admin', 'Partner1MSP.client')"
+          Admins:
+              Type: Signature
+              Rule: "OR('Partner1MSP.admin')"
+          Endorsement:
+              Type: Signature
+              Rule: "OR('Partner1MSP.peer')"
+
+  - &Partner2Org
+      Name: Partner2MSP
+      ID: Partner2MSP
+      MSPDir: ./crypto-config-cryptogen/peerOrganizations/partner2.example.com/msp
+      Policies:
+          Readers:
+              Type: Signature
+              Rule: "OR('Partner2MSP.admin', 'Partner2MSP.peer', 'Partner2MSP.client')"
+          Writers:
+              Type: Signature
+              Rule: "OR('Partner2MSP.admin', 'Partner2MSP.client')"
+          Admins:
+              Type: Signature
+              Rule: "OR('Partner2MSP.admin')"
+          Endorsement:
+              Type: Signature
+              Rule: "OR('Partner2MSP.peer')"
+
+Capabilities:
+    Channel: &ChannelCapabilities
+        V2_0: true
+    Orderer: &OrdererCapabilities
+        V2_0: true
+    Application: &ApplicationCapabilities
+        V2_0: true
+
+Application: &ApplicationDefaults
+    Organizations:
+    Policies:
+        Readers:
+            Type: ImplicitMeta
+            Rule: "ANY Readers"
+        Writers:
+            Type: ImplicitMeta
+            Rule: "ANY Writers"
+        Admins:
+            Type: ImplicitMeta
+            Rule: "MAJORITY Admins"
+        LifecycleEndorsement:
+            Type: ImplicitMeta
+            Rule: "MAJORITY Endorsement"
+        Endorsement:
+            Type: ImplicitMeta
+            Rule: "MAJORITY Endorsement"
+    Capabilities:
+        <<: *ApplicationCapabilities
+
+Orderer: &OrdererDefaults
+    OrdererType: solo
+    Addresses:
+        - orderer.ictu.edu.vn:7050
+    BatchTimeout: 2s
+    BatchSize:
+        MaxMessageCount: 10
+        AbsoluteMaxBytes: 99 MB
+        PreferredMaxBytes: 512 KB
+    Organizations:
+    Policies:
+        Readers:
+            Type: ImplicitMeta
+            Rule: "ANY Readers"
+        Writers:
+            Type: ImplicitMeta
+            Rule: "ANY Writers"
+        Admins:
+            Type: ImplicitMeta
+            Rule: "MAJORITY Admins"
+        BlockValidation:
+            Type: ImplicitMeta
+            Rule: "ANY Writers"
+
+Channel: &ChannelDefaults
+    Policies:
+        Readers:
+            Type: ImplicitMeta
+            Rule: "ANY Readers"
+        Writers:
+            Type: ImplicitMeta
+            Rule: "ANY Writers"
+        Admins:
+            Type: ImplicitMeta
+            Rule: "MAJORITY Admins"
+    Capabilities:
+        <<: *ChannelCapabilities
+
+Profiles:
+    ThreeOrgsOrdererGenesis:
+        <<: *ChannelDefaults
+        Orderer:
+            <<: *OrdererDefaults
+            Organizations:
+                - *OrdererOrg
+            Capabilities:
+                <<: *OrdererCapabilities
+        Consortiums:
+            SampleConsortium:
+                Organizations:
+                    - *IbnOrg
+                    - *Partner1Org
+                    - *Partner2Org
+
+    ThreeOrgsChannel:
+        Consortium: SampleConsortium
+        <<: *ChannelDefaults
+        Application:
+            <<: *ApplicationDefaults
+            Organizations:
+                - *IbnOrg
+                - *Partner1Org
+                - *Partner2Org
+            Capabilities:
+                <<: *ApplicationCapabilities
